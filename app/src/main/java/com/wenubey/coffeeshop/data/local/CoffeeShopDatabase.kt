@@ -3,6 +3,8 @@ package com.wenubey.coffeeshop.data.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.wenubey.coffeeshop.data.local.dao.MenuItemDao
+import com.wenubey.coffeeshop.data.local.dao.OrderDao
 import com.wenubey.coffeeshop.data.local.entities.MenuItem
 import com.wenubey.coffeeshop.data.local.entities.Order
 

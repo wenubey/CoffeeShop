@@ -2,6 +2,8 @@ package com.wenubey.coffeeshop.di
 
 import androidx.room.Room
 import com.wenubey.coffeeshop.data.local.CoffeeShopDatabase
+import com.wenubey.coffeeshop.data.repository.CoffeeShopRepositoryImpl
+import com.wenubey.coffeeshop.domain.CoffeeShopRepository
 import com.wenubey.coffeeshop.util.Constants.DB_NAME
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
@@ -16,4 +18,8 @@ val databaseModule = module {
     }
     factory { get<CoffeeShopDatabase>().menuItemDao }
     factory { get<CoffeeShopDatabase>().orderDao }
+}
+
+val repositoryModule = module {
+    single<CoffeeShopRepository> { CoffeeShopRepositoryImpl(get(), get()) }
 }
