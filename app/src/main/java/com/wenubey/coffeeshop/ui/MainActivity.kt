@@ -1,4 +1,4 @@
-package com.wenubey.coffeeshop
+package com.wenubey.coffeeshop.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
