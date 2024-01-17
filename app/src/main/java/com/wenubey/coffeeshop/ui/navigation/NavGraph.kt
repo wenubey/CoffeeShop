@@ -5,7 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.wenubey.coffeeshop.ui.screens.AboutUsScreen
-import com.wenubey.coffeeshop.ui.screens.FeedBackScreen
+import com.wenubey.coffeeshop.ui.screens.FeedbackScreen
 import com.wenubey.coffeeshop.ui.screens.HomeScreen
 import com.wenubey.coffeeshop.ui.screens.OrderHistoryScreen
 
@@ -32,7 +32,7 @@ fun NavGraph(
         }
 
         composable(route = Screen.FeedBackScreen.route) {
-            FeedBackScreen()
+            FeedbackScreen()
         }
     }
 }

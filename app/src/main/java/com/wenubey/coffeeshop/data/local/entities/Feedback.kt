@@ -14,6 +14,13 @@ data class Feedback(
     val feedbackId: String = UUID.randomUUID().toString(),
     @ColumnInfo("feedbackContent")
     val feedBackContent: String,
+    @ColumnInfo("feedbackOpinion")
+    val feedbackOpinion: FeedbackOpinion,
     @ColumnInfo("feedbackCreatedAt")
-    val feedbackCreatedAt: String = getCurrentTime()
+    val feedbackCreatedAt: String = getCurrentTime(),
 )
+
+enum class FeedbackOpinion {
+    POSITIVE,
+    NEGATIVE,
+}

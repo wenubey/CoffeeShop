@@ -7,12 +7,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.wenubey.coffeeshop.ui.theme.CoffeeShopTheme
 
 @Composable
-fun FeedBackScreen() {
-    FeedBackScreenContent()
+fun FeedbackScreen() {
+    FeedbackScreenContent()
 }
 
 @Composable
-private fun FeedBackScreenContent() {
+private fun FeedbackScreenContent() {
 
 }
 
@@ -22,7 +22,7 @@ private fun FeedBackScreenContent() {
 private fun FeedBackScreenContentPreview() {
      CoffeeShopTheme {
         Surface {
-             FeedBackScreenContent()
+             FeedbackScreenContent()
         }
     }
 }
