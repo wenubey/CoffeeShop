@@ -19,6 +19,30 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf(
+                    "room.schemaLocation" to "$projectDir/schemas",
+                    "room.incremental" to "true",
+                    "room.expandProjection" to "true"
+                )
+            }
+        }
+    }
+
+    class RoomSchemaArgProvider(
+        @get:InputDirectory
+        @get:PathSensitive(PathSensitivity.RELATIVE)
+        val schemaDir: File
+    ) : CommandLineArgumentProvider {
+
+        override fun asArguments(): Iterable<String> {
+            return listOf("room.schemaLocation=${schemaDir.path}")
+        }
+    }
+
+    ksp {
+        arg(RoomSchemaArgProvider(File(projectDir, "schemas")))
     }
 
     buildTypes {
@@ -75,6 +99,7 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
     ksp("androidx.room:room-compiler:$roomVersion")
+    implementation ("com.google.code.gson:gson:2.10.1")
 
     // Dependency Injection
     val koinVersion = "3.5.0"
