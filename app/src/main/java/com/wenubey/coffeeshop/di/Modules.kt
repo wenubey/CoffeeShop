@@ -8,6 +8,7 @@ import com.wenubey.coffeeshop.util.Constants.DB_NAME
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
+
 val databaseModule = module {
     single {
         Room.databaseBuilder(
@@ -18,8 +19,9 @@ val databaseModule = module {
     }
     factory { get<CoffeeShopDatabase>().menuItemDao }
     factory { get<CoffeeShopDatabase>().orderDao }
+    factory { get<CoffeeShopDatabase>().feedbackDao }
 }
 
 val repositoryModule = module {
-    single<CoffeeShopRepository> { CoffeeShopRepositoryImpl(get(), get()) }
+    single<CoffeeShopRepository> { CoffeeShopRepositoryImpl(get(), get(), get()) }
 }
