@@ -14,5 +14,6 @@ val databaseModule = module {
             DB_NAME
         ).build()
     }
-    factory { get<CoffeeShopDatabase>().coffeeShopDao }
+    factory { get<CoffeeShopDatabase>().menuItemDao }
+    factory { get<CoffeeShopDatabase>().orderDao }
 }

@@ -12,5 +12,6 @@ import com.wenubey.coffeeshop.data.local.entities.Order
 )
 @TypeConverters(CoffeeShopTypeConverter::class)
 abstract class CoffeeShopDatabase : RoomDatabase() {
-    abstract val coffeeShopDao: CoffeeShopDao
+    abstract val menuItemDao: MenuItemDao
+    abstract val orderDao: OrderDao
 }
