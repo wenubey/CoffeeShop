@@ -14,7 +14,7 @@ interface OrderDao: BaseDao<Order> {
      * @return A list of [Order] objects containing all menu items stored in the database.
      */
     @Query("SELECT * FROM order_table")
-    suspend fun getAllOrders(): LiveData<List<Order>>
+    suspend fun getAllOrders(): List<Order>
 
     /**
      * Retrieves a order from the database that matches the given id, using a partial id match.
@@ -23,7 +23,7 @@ interface OrderDao: BaseDao<Order> {
      * @return A [Order] object that matches the provided id (or partial id).
      */
     @Query("SELECT * FROM order_table WHERE orderId LIKE  '%' || :id || '%'")
-    suspend fun getOrder(id: String): LiveData<Order>
+    suspend fun getOrder(id: String): Order
 
     /**
      *  Deletes all orders from the database.

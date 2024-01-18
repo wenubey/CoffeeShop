@@ -11,8 +11,8 @@ interface OrderRepository {
 
     suspend fun deleteOrder(order: Order): Result<String>
 
-    suspend fun getOrder(id: String): Result<LiveData<Order>>
+    suspend fun getOrder(id: String): Result<Order>
 
-    suspend fun getAllOrders(): Result<LiveData<List<Order>>>
+    suspend fun getAllOrders(): Result<List<Order>>
 
 }

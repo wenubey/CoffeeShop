@@ -12,16 +12,12 @@ class MenuItemViewModel(
     private val repo: MenuItemRepository,
 ): ViewModel() {
 
-    private val _menuItemsDataState = MutableLiveData<MenuItemsDataState>()
-    val menuItemsDataState: LiveData<MenuItemsDataState>
-        get() = _menuItemsDataState
-
     private val _menuItemDataState = MutableLiveData<MenuItemDataState>()
     val menuItemDataState: LiveData<MenuItemDataState>
         get() = _menuItemDataState
 
 
-    fun onEvent(event: MenuItemEvent) {
+    fun onMenuItemEvent(event: MenuItemEvent) {
         when(event) {
             is MenuItemEvent.OnGetAllMenuItems -> getAllMenuItems()
             is MenuItemEvent.OnGetMenuItem -> getMenuItem(event.name)
@@ -43,9 +39,9 @@ class MenuItemViewModel(
     private fun clearMenuItems() = viewModelScope.launch {
         val result = repo.clearMenuItems()
         if (result.isSuccess) {
-            _menuItemsDataState.postValue(MenuItemsDataState(message = result.getOrNull()))
+            _menuItemDataState.postValue(MenuItemDataState(message = result.getOrNull()))
         } else {
-            _menuItemsDataState.postValue(MenuItemsDataState(error = result.exceptionOrNull()?.message))
+            _menuItemDataState.postValue(MenuItemDataState(error = result.exceptionOrNull()?.message))
         }
     }
 
@@ -70,9 +66,9 @@ class MenuItemViewModel(
     private fun getAllMenuItems() = viewModelScope.launch {
         val result = repo.getAllMenuItems()
         if(result.isSuccess) {
-            _menuItemsDataState.postValue(MenuItemsDataState(menuItems =result.getOrNull()))
+            _menuItemDataState.postValue(MenuItemDataState(menuItems = result.getOrNull()))
         } else {
-            _menuItemsDataState.postValue(MenuItemsDataState(error = result.exceptionOrNull()?.message))
+            _menuItemDataState.postValue(MenuItemDataState(error = result.exceptionOrNull()?.message))
         }
     }
 }

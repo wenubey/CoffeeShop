@@ -4,6 +4,7 @@ import com.wenubey.coffeeshop.data.local.entities.MenuItem
 
 data class MenuItemDataState(
     val menuItem: MenuItem? = null,
+    val menuItems: List<MenuItem>? = null,
     val message: String? = null,
     val error: String? = null,
 )

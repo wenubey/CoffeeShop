@@ -3,8 +3,10 @@ package com.wenubey.coffeeshop.ui.features.order
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.wenubey.coffeeshop.data.local.entities.Order
 import com.wenubey.coffeeshop.domain.OrderRepository
+import kotlinx.coroutines.launch
 
 class OrderViewModel(
     private val repo: OrderRepository
@@ -15,7 +17,7 @@ class OrderViewModel(
         get() = _orderDataState
 
 
-    fun onEvent(event: OrderEvent) {
+    fun onOrderEvent(event: OrderEvent) {
         when (event) {
             is OrderEvent.OnClearOrderHistory -> clearOrderHistory()
             is OrderEvent.OnAddOrder -> addOrder(event.order)
@@ -25,28 +27,50 @@ class OrderViewModel(
         }
     }
 
-    private fun getAllOrders() {
-        TODO("Not yet implemented")
+    private fun getAllOrders() = viewModelScope.launch {
+        val result = repo.getAllOrders()
+        if (result.isSuccess) {
+            _orderDataState.postValue(OrderDataState(orders = result.getOrNull()))
+        } else {
+            _orderDataState.postValue(OrderDataState(error = result.exceptionOrNull()?.message))
+        }
     }
 
-    private fun getOrder(id: String) {
-        TODO("Not yet implemented")
+    private fun getOrder(id: String) = viewModelScope.launch {
+        val result = repo.getOrder(id)
+        if (result.isSuccess) {
+            _orderDataState.postValue(OrderDataState(order = result.getOrNull()))
+        } else {
+            _orderDataState.postValue(OrderDataState(error = result.exceptionOrNull()?.message))
+        }
     }
 
-    private fun deleteOrder(order: Order) {
-        TODO("Not yet implemented")
+    private fun deleteOrder(order: Order) = viewModelScope.launch {
+        val result = repo.deleteOrder(order)
+        if (result.isSuccess) {
+            _orderDataState.postValue(OrderDataState(message = result.getOrNull()))
+        } else {
+            _orderDataState.postValue(OrderDataState(error = result.exceptionOrNull()?.message))
+        }
     }
 
 
-    private fun addOrder(order: Order) {
-        TODO("Not yet implemented")
+    private fun addOrder(order: Order)  = viewModelScope.launch {
+        val result = repo.addOrder(order)
+        if (result.isSuccess) {
+            _orderDataState.postValue(OrderDataState(message = result.getOrNull()))
+        } else {
+            _orderDataState.postValue(OrderDataState(error = result.exceptionOrNull()?.message))
+        }
     }
 
-    private fun clearOrderHistory() {
-        TODO("Not yet implemented")
+    private fun clearOrderHistory() = viewModelScope.launch {
+        val result = repo.clearOrderHistory()
+        if (result.isSuccess) {
+            _orderDataState.postValue(OrderDataState(message = result.getOrNull()))
+        } else {
+            _orderDataState.postValue(OrderDataState(error = result.exceptionOrNull()?.message))
+        }
     }
-
-
-
 
 }

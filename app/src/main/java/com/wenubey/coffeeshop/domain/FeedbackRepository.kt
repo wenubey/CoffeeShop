@@ -9,5 +9,5 @@ interface FeedbackRepository {
 
     suspend fun clearFeedbacks(): Result<String>
 
-    suspend fun getAllFeedbacks(): Result<LiveData<List<Feedback>>>
+    suspend fun getAllFeedbacks(): Result<List<Feedback>>
 }
