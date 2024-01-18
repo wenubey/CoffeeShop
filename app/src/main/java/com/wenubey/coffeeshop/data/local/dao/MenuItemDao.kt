@@ -15,7 +15,7 @@ interface MenuItemDao: BaseDao<MenuItem> {
      * @return A list of [MenuItem] objects containing all menu items stored in the database.
      */
     @Query("SELECT * FROM menu_item_table")
-    suspend fun getAllMenuItems(): LiveData<List<MenuItem>>
+    suspend fun getAllMenuItems(): List<MenuItem>
 
     /**
      * Retrieves a menu item from the database that matches the given name, using a partial name match.
@@ -24,7 +24,7 @@ interface MenuItemDao: BaseDao<MenuItem> {
      * @return A [MenuItem] object that matches the provided name (or partial name).
      */
     @Query("SELECT * FROM menu_item_table WHERE itemName LIKE  '%' || :name || '%'")
-    suspend fun getMenuItem(name: String): LiveData<MenuItem>
+    suspend fun getMenuItem(name: String): MenuItem
 
     /**
      *  Deletes all menu items from the database.

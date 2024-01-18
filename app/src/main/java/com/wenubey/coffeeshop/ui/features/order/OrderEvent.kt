@@ -1,30 +1,18 @@
-package com.wenubey.coffeeshop.ui
+package com.wenubey.coffeeshop.ui.features.order
 
-import com.wenubey.coffeeshop.data.local.entities.Feedback
-import com.wenubey.coffeeshop.data.local.entities.MenuItem
 import com.wenubey.coffeeshop.data.local.entities.Order
 
-sealed class CoffeeShopEvent {
-
-
+sealed class OrderEvent {
 
     // Order related operations
-    data object OnClearOrderHistory: CoffeeShopEvent()
+    data object OnClearOrderHistory: OrderEvent()
 
-    data class OnAddOrder(val order: Order): CoffeeShopEvent()
+    data class OnAddOrder(val order: Order): OrderEvent()
 
-    data class OnDeleteOrder(val order: Order): CoffeeShopEvent()
+    data class OnDeleteOrder(val order: Order): OrderEvent()
 
-    data class OnGetOrder(val id: String): CoffeeShopEvent()
+    data class OnGetOrder(val id: String): OrderEvent()
 
-    data object OnGetAllOrders: CoffeeShopEvent()
-
-    // Feedback related operations
-
-    data object OnClearFeedbacks: CoffeeShopEvent()
-
-    data class OnAddFeedback(val feedback: Feedback): CoffeeShopEvent()
-
-    data object OnGetAllFeedbacks: CoffeeShopEvent()
+    data object OnGetAllOrders: OrderEvent()
 
 }

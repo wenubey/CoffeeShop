@@ -1,4 +1,4 @@
-package com.wenubey.coffeeshop.ui
+package com.wenubey.coffeeshop.ui.features.order
 
 import com.wenubey.coffeeshop.data.local.entities.Order
 
