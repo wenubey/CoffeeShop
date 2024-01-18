@@ -1,5 +1,6 @@
 package com.wenubey.coffeeshop.ui.navigation
 
+import androidx.compose.material3.DrawerState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -11,7 +12,8 @@ import com.wenubey.coffeeshop.ui.screens.OrderHistoryScreen
 
 @Composable
 fun NavGraph(
-    navController: NavHostController
+    navController: NavHostController,
+    drawerState: DrawerState,
 ) {
 
     NavHost(
@@ -20,7 +22,7 @@ fun NavGraph(
     ) {
 
         composable(route = Screen.HomeScreen.route) {
-            HomeScreen()
+            HomeScreen(drawerState = drawerState)
         }
 
         composable(route = Screen.OrderHistoryScreen.route) {
