@@ -9,7 +9,7 @@ import com.wenubey.coffeeshop.util.Constants.MENU_ITEM_TABLE_NAME
 data class MenuItem(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "itemId")
-    val itemId: Int,
+    val itemId: Int? = null,
     @ColumnInfo(name = "itemName")
     val itemName: String,
     @ColumnInfo(name = "menuItemType")
