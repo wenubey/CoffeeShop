@@ -15,12 +15,11 @@ class CoffeeShopTypeConverter {
         return data?.let { Gson().toJson(it) }
     }
 
+    @TypeConverter
+    fun itemsFromJson(json: String?): MutableList<MenuItem>? =
+        fromJson(json, object : TypeToken<MutableList<MenuItem>>() {})
 
     @TypeConverter
-    fun itemsFromJson(json: String?): List<MenuItem>? =
-        fromJson(json, object : TypeToken<List<MenuItem>>() {})
-
-    @TypeConverter
-    fun itemsToJson(items: List<MenuItem>?): String? =
+    fun itemsToJson(items: MutableList<MenuItem>?): String? =
         toJson(items)
 }

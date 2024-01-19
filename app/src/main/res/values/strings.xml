@@ -9,4 +9,11 @@
     <string name="menu_item_name_placeholder">Menu item name</string>
     <string name="menu_item_price_placeholder">Menu item price</string>
     <string name="menu_item_type">Menu Item Type</string>
+    <string name="current_order_fab_description">This button goes to your current order.</string>
+    <string name="card_empty_message">Your card is empty</string>
+    <string name="current_order_title">Current Order</string>
+    <string name="increment_item_quantity_description">This button increment the item quantity.</string>
+    <string name="delete_current_order_item_description">This button delete the current Item.</string>
+    <string name="decrement_item_quantity_description">This button decrement the item quantity.</string>
+    <string name="menuitemcard_description">Background for MenuItemCard</string>
 </resources>

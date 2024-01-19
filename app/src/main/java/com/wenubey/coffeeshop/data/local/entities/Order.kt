@@ -13,9 +13,9 @@ data class Order(
     @ColumnInfo(name = "orderId")
     val orderId: String = UUID.randomUUID().toString(),
     @ColumnInfo(name = "items")
-    val items: List<MenuItem>,
+    val items: MutableList<MenuItem>,
     @ColumnInfo(name = "totalPrice")
-    val totalPrice: Double,
+    var totalPrice: Double,
     @ColumnInfo(name = "orderedAt")
     val orderedAt: String = getCurrentTime(),
 )

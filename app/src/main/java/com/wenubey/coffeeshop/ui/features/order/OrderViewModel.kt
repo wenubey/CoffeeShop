@@ -17,11 +17,9 @@ class OrderViewModel(
     val orderDataState: LiveData<OrderDataState>
         get() = _orderDataState
 
-    private val currentOrderItems = mutableListOf<MenuItem>()
+    private val _currentOrderItems = mutableListOf<MenuItem>()
 
-    private val _totalPrice = MutableLiveData<Double>()
-    val totalPrice: LiveData<Double>
-        get() = _totalPrice
+    private val _currentOrder = MutableLiveData(Order(items = mutableListOf(), totalPrice = 0.0))
 
 
     fun onOrderEvent(event: OrderEvent) {
@@ -31,15 +29,55 @@ class OrderViewModel(
             is OrderEvent.OnDeleteOrder -> deleteOrder(event.order)
             is OrderEvent.OnGetOrder -> getOrder(event.id)
             is OrderEvent.OnGetAllOrders -> getAllOrders()
-            is OrderEvent.OnAddMenuItem -> addMenuItemToOrder(event.menuItem)
+            is OrderEvent.OnAddMenuItemToCurrentOrder -> addMenuItemToOrder(event.menuItem)
+            is OrderEvent.OnRemoveMenuItemFromCurrentOrder -> removeMenuItemFromOrder(event.menuItem)
+            is OrderEvent.OnIncrementMenuItemQuantity -> incrementMenuItemQuantity(event.menuItem)
+            is OrderEvent.OnDecrementMenuItemQuantity -> decrementMenuItemQuantity(event.menuItem)
+
         }
     }
 
-    private fun addMenuItemToOrder(menuItem: MenuItem) {
-        currentOrderItems.add(menuItem)
+    private fun updateOrder() {
+        val total = _currentOrderItems.sumOf { it.itemPrice * it.itemQuantity }
+        _currentOrder.value = _currentOrder.value?.copy(totalPrice = total, items = _currentOrderItems)
+        _orderDataState.postValue(OrderDataState(order = _currentOrder.value))
+    }
 
-        val total = currentOrderItems.sumOf { it.itemPrice }
-        _totalPrice.postValue(total)
+    private fun resetOrder() {
+        _currentOrderItems.clear()
+        _currentOrder.value = Order(items = mutableListOf(), totalPrice = 0.0)
+        updateOrder()
+    }
+
+    private fun addMenuItemToOrder(menuItem: MenuItem) {
+        val existingItem = _currentOrderItems.find { it.itemId == menuItem.itemId }
+        if (existingItem != null) {
+            existingItem.itemQuantity++
+        } else {
+            _currentOrderItems.add(menuItem.copy(itemQuantity = 1))
+        }
+        updateOrder()
+    }
+
+    private fun removeMenuItemFromOrder(menuItem: MenuItem) {
+        _currentOrderItems.removeAll { it.itemId == menuItem.itemId }
+        updateOrder()
+    }
+
+    private fun incrementMenuItemQuantity(menuItem: MenuItem) {
+        val existingItem = _currentOrderItems.find { it.itemId == menuItem.itemId }
+        existingItem?.let {
+            it.itemQuantity++
+            updateOrder()
+        }
+    }
+
+    private fun decrementMenuItemQuantity(menuItem: MenuItem) {
+        val existingItem = _currentOrderItems.find { it.itemId == menuItem.itemId }
+        if (existingItem != null && existingItem.itemQuantity > 1) {
+            existingItem.itemQuantity--
+            updateOrder()
+        }
     }
 
     private fun getAllOrders() = viewModelScope.launch {
@@ -67,15 +105,13 @@ class OrderViewModel(
         } else {
             _orderDataState.postValue(OrderDataState(error = result.exceptionOrNull()?.message))
         }
+        resetOrder()
     }
 
 
     private fun addOrder()  = viewModelScope.launch {
-        val newOrder = Order(
-            items = currentOrderItems,
-            totalPrice = _totalPrice.value ?: 0.0,
-        )
-        val result = repo.addOrder(newOrder)
+        val result = repo.addOrder(_currentOrder.value!!)
+        resetOrder()
         if (result.isSuccess) {
             _orderDataState.postValue(OrderDataState(message = result.getOrNull()))
         } else {

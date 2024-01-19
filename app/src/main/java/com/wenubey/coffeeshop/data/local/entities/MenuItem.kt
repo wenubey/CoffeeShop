@@ -12,6 +12,8 @@ data class MenuItem(
     val itemId: Int? = null,
     @ColumnInfo(name = "itemName")
     val itemName: String,
+    @ColumnInfo(name = "itemQuantity")
+    var itemQuantity: Int = 0,
     @ColumnInfo(name = "menuItemType")
     val menuItemType: MenuItemType,
     @ColumnInfo(name = "itemPrice")
