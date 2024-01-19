@@ -3,7 +3,6 @@ package com.wenubey.coffeeshop.ui.features.menu_item
 import com.wenubey.coffeeshop.data.local.entities.MenuItem
 
 sealed class MenuItemEvent {
-    data object OnGetAllMenuItems: MenuItemEvent()
 
     data class OnGetMenuItem(val name: String): MenuItemEvent()
 

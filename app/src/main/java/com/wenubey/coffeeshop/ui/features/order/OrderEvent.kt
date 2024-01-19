@@ -16,6 +16,9 @@ sealed class OrderEvent {
 
     data object OnGetAllOrders: OrderEvent()
 
-    data class OnAddMenuItem(val menuItem: MenuItem): OrderEvent()
+    data class OnAddMenuItemToCurrentOrder(val menuItem: MenuItem) : OrderEvent()
+    data class OnRemoveMenuItemFromCurrentOrder(val menuItem: MenuItem) : OrderEvent()
+    data class OnIncrementMenuItemQuantity(val menuItem: MenuItem) : OrderEvent()
+    data class OnDecrementMenuItemQuantity(val menuItem: MenuItem) : OrderEvent()
 
 }
