@@ -30,7 +30,7 @@ fun NavGraph(
         }
 
         composable(route = Screen.AboutUsScreen.route) {
-            AboutUsScreen()
+            AboutUsScreen(drawerState = drawerState)
         }
 
         composable(route = Screen.FeedBackScreen.route) {

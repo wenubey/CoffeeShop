@@ -203,7 +203,7 @@ fun MenuItemCard(menuItem: MenuItem, orderViewModel: OrderViewModel) {
                     .size(75.dp)
                     .alpha(0.3f) ,
                 imageVector = getIconForMenuItemTypes(menuItem.menuItemType),
-                contentDescription = stringResource(R.string.menuitemcard_description)
+                contentDescription = stringResource(R.string.menu_item_card_description)
             )
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(menuItem.itemName)
