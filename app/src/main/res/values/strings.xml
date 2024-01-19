@@ -15,7 +15,7 @@
     <string name="increment_item_quantity_description">This button increment the item quantity.</string>
     <string name="delete_current_order_item_description">This button delete the current Item.</string>
     <string name="decrement_item_quantity_description">This button decrement the item quantity.</string>
-    <string name="menuitemcard_description">Background for MenuItemCard</string>
+    <string name="menu_item_card_description">Background for MenuItemCard</string>
     <string name="feedback_screen_title">Feedback Screen</string>
     <string name="add_feedback_description">Add feedback to database</string>
     <string name="feedback_opinion_description">Feedback Opinion</string>
@@ -35,4 +35,12 @@
     <string name="delete_all_feedbacks_description">Delete all feedbacks</string>
     <string name="delete_all_feedbacks_message">Are you sure to delete the all feedbacks to the system?</string>
     <string name="delete_all_feedbacks_title">Delete All Feedbacks</string>
+    <string name="about_us_title">About Us</string>
+    <string name="app_icon">App icon</string>
+    <string name="welcome_app_message">Welcome the Coffee Shop App</string>
+    <string name="coffee_shop_about_us_message">At Coffee Shop, we are passionate about serving you the finest coffee and delicious treats. We\'ve been brewing great coffee since 1996, and we take pride in providing a cozy and welcoming atmosphere for our customers.</string>
+    <string name="coffee_shop_address">ul. Okopowa 59, Warszawa</string>
+    <string name="coffee_shop_mail">helloworld@gmail.com</string>
+    <string name="coffee_shop_phone">+48 123456789</string>
+    <string name="contact_info_description">Contact info</string>
 </resources>
