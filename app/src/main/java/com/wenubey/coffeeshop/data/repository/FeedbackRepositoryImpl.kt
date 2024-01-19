@@ -80,6 +80,20 @@ class FeedbackRepositoryImpl(
         }
     }
 
+    override suspend fun deleteFeedback(feedback: Feedback): Result<String> {
+        return try {
+            val result = withContext(ioDispatcher) {
+                dao.delete(feedback)
+                Log.w(TAG, "deleteFeedback:Success")
+                SUCCESS
+            }
+            Result.success(result)
+        } catch (e: Exception) {
+            Log.e(TAG, "deleteFeedback:Error", e)
+            Result.failure(e)
+        }
+    }
+
     companion object {
         private const val TAG = "feedbackRepositoryImpl"
         private const val SUCCESS = "Operation successful"

@@ -21,10 +21,20 @@ class FeedbackViewModel(
             is FeedbackEvent.OnClearFeedbacks -> clearFeedbacks()
             is FeedbackEvent.OnAddFeedback -> addFeedback(event.feedback)
             is FeedbackEvent.OnGetAllFeedbacks -> getAllFeedbacks()
+            is FeedbackEvent.OnDeleteFeedback -> deleteFeedback(event.feedback)
         }
     }
 
-    private fun getAllFeedbacks() = viewModelScope.launch {
+    private fun deleteFeedback(feedback: Feedback) = viewModelScope.launch {
+        val result = repo.deleteFeedback(feedback)
+        if (result.isSuccess) {
+            _feedbackDataState.postValue(FeedbackDataState(message = result.getOrNull()))
+        } else {
+            _feedbackDataState.postValue(FeedbackDataState(error = result.exceptionOrNull()?.message))
+        }
+    }
+
+    fun getAllFeedbacks() = viewModelScope.launch {
         val result = repo.getAllFeedbacks()
         if (result.isSuccess) {
             _feedbackDataState.postValue(FeedbackDataState(feedbacks = result.getOrNull()))

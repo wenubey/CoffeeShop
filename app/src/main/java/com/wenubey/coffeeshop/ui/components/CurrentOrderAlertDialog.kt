@@ -1,7 +1,6 @@
 package com.wenubey.coffeeshop.ui.components
 
 import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -71,7 +70,7 @@ private fun CurrentOrderAlertDialogContent(
                 Button(
                     onClick = onDialogConfirmClicked,
                 ) {
-                    Text(text = "Pay now")
+                    Text(text = stringResource(R.string.pay_now_button))
                 }
             }
 
@@ -110,12 +109,21 @@ private fun CurrentOrderCard(
         modifier = Modifier.padding(8.dp),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp)
     ) {
-        Row(modifier = Modifier.fillMaxWidth().padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp), verticalAlignment = Alignment.CenterVertically
+        ) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(text = menuItem.itemName)
-                Text(text = "Quantity: ${menuItem.itemQuantity}")
-                Text(text = "Price: ${menuItem.itemPrice}$")
-                Text(text = "Subtotal: ${menuItem.itemPrice * menuItem.itemQuantity}$")
+                Text(text = stringResource(R.string.quantity, menuItem.itemQuantity))
+                Text(text = stringResource(R.string.price, menuItem.itemPrice))
+                Text(
+                    text = stringResource(
+                        R.string.subtotal,
+                        menuItem.itemPrice * menuItem.itemQuantity
+                    )
+                )
             }
             Row {
                 Icon(

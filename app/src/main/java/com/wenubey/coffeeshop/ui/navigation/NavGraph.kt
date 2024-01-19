@@ -18,7 +18,7 @@ fun NavGraph(
 
     NavHost(
         navController = navController,
-        startDestination = Screen.HomeScreen.route,
+        startDestination = Screen.FeedBackScreen.route,
     ) {
 
         composable(route = Screen.HomeScreen.route) {
@@ -34,7 +34,7 @@ fun NavGraph(
         }
 
         composable(route = Screen.FeedBackScreen.route) {
-            FeedbackScreen()
+            FeedbackScreen(drawerState = drawerState)
         }
     }
 }
