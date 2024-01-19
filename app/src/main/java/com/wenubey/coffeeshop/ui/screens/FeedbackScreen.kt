@@ -1,33 +1,146 @@
 package com.wenubey.coffeeshop.ui.screens
 
-import android.content.res.Configuration
-import androidx.compose.foundation.layout.Box
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.tooling.preview.Preview
-import com.wenubey.coffeeshop.ui.theme.CoffeeShopTheme
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import com.wenubey.coffeeshop.R
+import com.wenubey.coffeeshop.ui.components.AddFeedbackAlertDialog
+import com.wenubey.coffeeshop.ui.components.CommonTopAppBar
+import com.wenubey.coffeeshop.ui.components.DeleteAllFeedbacksAlertDialog
+import com.wenubey.coffeeshop.ui.components.FeedbackCard
+import com.wenubey.coffeeshop.ui.features.feedback.FeedbackDataState
+import com.wenubey.coffeeshop.ui.features.feedback.FeedbackEvent
+import com.wenubey.coffeeshop.ui.features.feedback.FeedbackViewModel
+import com.wenubey.coffeeshop.util.makeToast
+import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun FeedbackScreen() {
-    FeedbackScreenContent()
+fun FeedbackScreen(drawerState: DrawerState) {
+    FeedbackScreenContent(drawerState = drawerState)
 }
 
 @Composable
-private fun FeedbackScreenContent() {
-    Box(contentAlignment = Alignment.Center ) {
-        Text("FEEDBACK")
+private fun FeedbackScreenContent(
+    drawerState: DrawerState = DrawerState(initialValue = DrawerValue.Closed),
+    viewModel: FeedbackViewModel = koinViewModel()
+) {
+    val scope = rememberCoroutineScope()
+    val isFeedbackAddDialogOpen = remember {
+        mutableStateOf(false)
     }
-}
-
-@Preview(name = "Dark mode", uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
-@Preview(name = "Light mode", uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
-@Composable
-private fun FeedBackScreenContentPreview() {
-     CoffeeShopTheme {
-        Surface {
-             FeedbackScreenContent()
+    val isDeleteAllFeedbacksDialogOpened = remember {
+        mutableStateOf(false)
+    }
+    val feedbackDataState by viewModel.feedbackDataState.observeAsState(initial = FeedbackDataState())
+    val context = LocalContext.current
+    LaunchedEffect(feedbackDataState.message) {
+        if (feedbackDataState.message != null) {
+            context.makeToast(feedbackDataState.message)
         }
     }
+    LaunchedEffect(feedbackDataState) {
+        viewModel.getAllFeedbacks()
+    }
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            CommonTopAppBar(
+                title = R.string.feedback_screen_title,
+                onNavigationIconClicked = {
+                    scope.launch {
+                        drawerState.open()
+                    }
+                },
+            )
+        },
+        floatingActionButton = {
+            Row {
+                FloatingActionButton(
+                    onClick = {
+                        isDeleteAllFeedbacksDialogOpened.value =
+                            !isDeleteAllFeedbacksDialogOpened.value
+                    },
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = stringResource(R.string.delete_all_feedbacks_description)
+                    )
+                }
+                FloatingActionButton(
+                    onClick = {
+                        isFeedbackAddDialogOpen.value = !isFeedbackAddDialogOpen.value
+                    },
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = stringResource(R.string.add_feedback_description)
+                    )
+                }
+            }
+
+        },
+    ) { paddingValues ->
+        val feedbacks = feedbackDataState.feedbacks
+        if (!feedbacks.isNullOrEmpty()) {
+            LazyColumn(modifier = Modifier.padding(paddingValues)) {
+                items(feedbacks) { feedback ->
+                    FeedbackCard(
+                        feedback = feedback,
+                        onDeleteFeedbackClicked = {
+                            viewModel.onFeedbackEvent(
+                                FeedbackEvent.OnDeleteFeedback(it)
+                            )
+                        })
+                }
+            }
+        } else {
+            // TODO: add error screen
+        }
+    }
+    if (isFeedbackAddDialogOpen.value) {
+        AddFeedbackAlertDialog(
+            isFeedbackAddDialogOpen = isFeedbackAddDialogOpen,
+            onConfirmButtonClicked = {
+                viewModel.onFeedbackEvent(FeedbackEvent.OnAddFeedback(it))
+                isFeedbackAddDialogOpen.value = false
+            },
+        )
+    }
+    if (isDeleteAllFeedbacksDialogOpened.value) {
+        DeleteAllFeedbacksAlertDialog(
+            isDialogOpened = isDeleteAllFeedbacksDialogOpened,
+            onConfirmButtonClicked = {
+                viewModel.onFeedbackEvent(FeedbackEvent.OnClearFeedbacks)
+                isDeleteAllFeedbacksDialogOpened.value = false
+            }
+        )
+    }
 }
+
+
+
+
+
+
+

@@ -16,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.wenubey.coffeeshop.R
 import com.wenubey.coffeeshop.ui.theme.CoffeeShopTheme
-import kotlinx.coroutines.launch
 
 @Composable
 fun CommonTopAppBar(
@@ -40,7 +39,7 @@ private fun CommonTopAppBarContent(
         title = {
             Text(
                 text = stringResource(title),
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.titleLarge,
             )
         },
         navigationIcon = {

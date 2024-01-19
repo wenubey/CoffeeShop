@@ -16,4 +16,23 @@
     <string name="delete_current_order_item_description">This button delete the current Item.</string>
     <string name="decrement_item_quantity_description">This button decrement the item quantity.</string>
     <string name="menuitemcard_description">Background for MenuItemCard</string>
+    <string name="feedback_screen_title">Feedback Screen</string>
+    <string name="add_feedback_description">Add feedback to database</string>
+    <string name="feedback_opinion_description">Feedback Opinion</string>
+    <string name="pay_now_button">Pay now</string>
+    <string name="quantity">Quantity: %1$s</string>
+    <string name="price">Price: %1$s$</string>
+    <string name="subtotal">Subtotal: %1$s$</string>
+    <string name="add_feedback">Add Feedback</string>
+    <string name="send_button">Send</string>
+    <string name="feedback_placeholder">Write your feedback here.</string>
+    <string name="opinion_pick_title">Your opinion</string>
+    <string name="feedback_delete_description">Delete this feedback.</string>
+    <string name="delete_button">Delete</string>
+    <string name="delete_operation_message">Are you sure to delete this feedback to our system?</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="delete_confirmation_title">Delete confirmation</string>
+    <string name="delete_all_feedbacks_description">Delete all feedbacks</string>
+    <string name="delete_all_feedbacks_message">Are you sure to delete the all feedbacks to the system?</string>
+    <string name="delete_all_feedbacks_title">Delete All Feedbacks</string>
 </resources>

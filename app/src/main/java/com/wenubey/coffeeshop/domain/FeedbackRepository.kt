@@ -1,6 +1,5 @@
 package com.wenubey.coffeeshop.domain
 
-import androidx.lifecycle.LiveData
 import com.wenubey.coffeeshop.data.local.entities.Feedback
 
 interface FeedbackRepository {
@@ -10,4 +9,6 @@ interface FeedbackRepository {
     suspend fun clearFeedbacks(): Result<String>
 
     suspend fun getAllFeedbacks(): Result<List<Feedback>>
+
+    suspend fun deleteFeedback(feedback: Feedback): Result<String>
 }

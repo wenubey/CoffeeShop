@@ -9,4 +9,6 @@ sealed class FeedbackEvent {
     data class OnAddFeedback(val feedback: Feedback): FeedbackEvent()
 
     data object OnGetAllFeedbacks: FeedbackEvent()
+
+    data class OnDeleteFeedback(val feedback: Feedback): FeedbackEvent()
 }
