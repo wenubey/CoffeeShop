@@ -29,10 +29,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.wenubey.coffeeshop.R
@@ -51,6 +54,11 @@ fun AboutUsScreen(
 private fun AboutUsScreenContent(
     drawerState: DrawerState = DrawerState(initialValue = DrawerValue.Closed)
 ) {
+    val config = LocalConfiguration.current
+    val isLandscape = config.orientation == Configuration.ORIENTATION_LANDSCAPE
+
+
+
     val scope = rememberCoroutineScope()
     Scaffold(
         topBar = {
@@ -70,41 +78,92 @@ private fun AboutUsScreenContent(
                 .padding(paddingValues)
                 .padding(8.dp),
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(8.dp)
-            ) {
-                Image(
-                    modifier = Modifier.size(200.dp),
-                    painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                    contentDescription = stringResource(
-                        R.string.app_icon
-                    )
-                )
-                Text(
-                    text = stringResource(R.string.welcome_app_message),
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.titleLarge
-                )
-                Divider(thickness = 2.dp)
-                Spacer(modifier = Modifier.height(4.dp))
-                Column(
-                    horizontalAlignment = Alignment.Start,
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.coffee_shop_about_us_message)
-                    )
-                    Divider(thickness = 1.dp)
-                    ContactInfoRow(imageVector = Icons.Default.LocationOn, content = R.string.coffee_shop_address)
-                    ContactInfoRow(imageVector = Icons.Default.Phone, content = R.string.coffee_shop_phone)
-                    ContactInfoRow(imageVector = Icons.Default.Mail, content = R.string.coffee_shop_mail)
-                }
-
+            if (isLandscape) {
+                LandscapeCardContent()
+            } else {
+                PortraitCardContent()
             }
+
         }
     }
 }
+
+@Composable
+fun LandscapeCardContent() {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Image(
+            modifier = Modifier.size(300.dp).alpha(0.3f).align(Alignment.Center),
+            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+            contentDescription = stringResource(
+                R.string.app_icon
+            )
+        )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.padding(8.dp)
+        ) {
+
+            Text(
+                text = stringResource(R.string.welcome_app_message),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleLarge
+            )
+            Divider(thickness = 2.dp)
+            Spacer(modifier = Modifier.height(4.dp))
+            Column(
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.coffee_shop_about_us_message)
+                )
+                Divider(thickness = 1.dp)
+                ContactInfoRow(imageVector = Icons.Default.LocationOn, content = R.string.coffee_shop_address)
+                ContactInfoRow(imageVector = Icons.Default.Phone, content = R.string.coffee_shop_phone)
+                ContactInfoRow(imageVector = Icons.Default.Mail, content = R.string.coffee_shop_mail)
+            }
+
+        }
+    }
+}
+
+@Composable
+fun PortraitCardContent() {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding(8.dp)
+    ) {
+        Image(
+            modifier = Modifier.size(200.dp),
+            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+            contentDescription = stringResource(
+                R.string.app_icon
+            )
+        )
+        Text(
+            text = stringResource(R.string.welcome_app_message),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.titleLarge
+        )
+        Divider(thickness = 2.dp)
+        Spacer(modifier = Modifier.height(4.dp))
+        Column(
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.coffee_shop_about_us_message)
+            )
+            Divider(thickness = 1.dp)
+            ContactInfoRow(imageVector = Icons.Default.LocationOn, content = R.string.coffee_shop_address)
+            ContactInfoRow(imageVector = Icons.Default.Phone, content = R.string.coffee_shop_phone)
+            ContactInfoRow(imageVector = Icons.Default.Mail, content = R.string.coffee_shop_mail)
+        }
+
+    }
+}
+
+
 
 @Composable
 fun ContactInfoRow(
@@ -123,8 +182,11 @@ fun ContactInfoRow(
     }
 }
 
-@Preview(name = "Dark mode", uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
-@Preview(name = "Light mode", uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true)
+
+@Preview(name = "Landscape Dark mode", uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true, device = "spec:width=411dp,height=891dp,dpi=420,isRound=false,chinSize=0dp,orientation=landscape")
+@Preview(name = "Landscape Light mode", uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true, device = "spec:width=411dp,height=891dp,dpi=420,isRound=false,chinSize=0dp,orientation=landscape")
+@Preview(name = "Portrait Dark mode", uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true, device = "spec:width=411dp,height=891dp,dpi=420,isRound=false,chinSize=0dp,orientation=portrait")
+@Preview(name = "Portrait Light mode", uiMode = Configuration.UI_MODE_NIGHT_NO, showBackground = true, device = "spec:width=411dp,height=891dp,dpi=420,isRound=false,chinSize=0dp,orientation=portrait")
 @Composable
 private fun AboutUsScreenContentPreview() {
     CoffeeShopTheme {

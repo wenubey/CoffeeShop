@@ -59,7 +59,6 @@ fun OrderCard(order: Order = fakeOrder) {
                 Text(text = order.orderedAt, style = MaterialTheme.typography.titleLarge)
                 Divider(thickness = 2.dp)
                 Text(text = "Your Orders", style = MaterialTheme.typography.titleMedium)
-                Divider(thickness = 1.dp, modifier = Modifier.fillMaxWidth(0.5f))
                 order.items.forEach {
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
