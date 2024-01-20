@@ -29,6 +29,7 @@ import com.wenubey.coffeeshop.ui.components.CommonTopAppBar
 import com.wenubey.coffeeshop.ui.components.DeleteAllFeedbacksAlertDialog
 import com.wenubey.coffeeshop.ui.components.ErrorScreen
 import com.wenubey.coffeeshop.ui.components.FeedbackCard
+import com.wenubey.coffeeshop.ui.components.SwipeDeleteCard
 import com.wenubey.coffeeshop.ui.features.feedback.FeedbackDataState
 import com.wenubey.coffeeshop.ui.features.feedback.FeedbackEvent
 import com.wenubey.coffeeshop.ui.features.feedback.FeedbackViewModel
@@ -106,13 +107,16 @@ private fun FeedbackScreenContent(
         if (!feedbacks.isNullOrEmpty()) {
             LazyColumn(modifier = Modifier.padding(paddingValues)) {
                 items(feedbacks) { feedback ->
-                    FeedbackCard(
-                        feedback = feedback,
-                        onDeleteFeedbackClicked = {
-                            viewModel.onFeedbackEvent(
-                                FeedbackEvent.OnDeleteFeedback(it)
+                    SwipeDeleteCard(
+                        onSwiped = {
+                            viewModel.onFeedbackEvent(FeedbackEvent.OnDeleteFeedback(feedback))
+                        },
+                        dismissContent = {
+                            FeedbackCard(
+                                feedback = feedback
                             )
-                        })
+                        }
+                    )
                 }
             }
         } else {
