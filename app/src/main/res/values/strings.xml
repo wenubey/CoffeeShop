@@ -43,4 +43,14 @@
     <string name="coffee_shop_mail">helloworld@gmail.com</string>
     <string name="coffee_shop_phone">+48 123456789</string>
     <string name="contact_info_description">Contact info</string>
+    <string name="order_history_title">Order History</string>
+    <string name="delete_order_title">Delete Order</string>
+    <string name="delete_order_message">Are you sure to delete this order permanently?</string>
+    <string name="total_message">Total: %1$.2f$</string>
+    <string name="price_format">%1$.2f$</string>
+    <string name="shopping_bag_description">Shopping bag background</string>
+    <string name="swipe_to_dismiss_background_color_label">swipeToDismissBackgroundColor</string>
+    <string name="order_history_list_empty_message">Your order history is empty. If you want to show your history you should do shopping.</string>
+    <string name="error_screen_description">Error occurred</string>
+    <string name="feedback_list_empty_message">Your feedback list is empty.</string>
 </resources>

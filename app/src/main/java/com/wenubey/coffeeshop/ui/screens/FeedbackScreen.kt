@@ -27,6 +27,7 @@ import com.wenubey.coffeeshop.R
 import com.wenubey.coffeeshop.ui.components.AddFeedbackAlertDialog
 import com.wenubey.coffeeshop.ui.components.CommonTopAppBar
 import com.wenubey.coffeeshop.ui.components.DeleteAllFeedbacksAlertDialog
+import com.wenubey.coffeeshop.ui.components.ErrorScreen
 import com.wenubey.coffeeshop.ui.components.FeedbackCard
 import com.wenubey.coffeeshop.ui.features.feedback.FeedbackDataState
 import com.wenubey.coffeeshop.ui.features.feedback.FeedbackEvent
@@ -115,7 +116,7 @@ private fun FeedbackScreenContent(
                 }
             }
         } else {
-            // TODO: add error screen
+            ErrorScreen(error = stringResource(R.string.feedback_list_empty_message))
         }
     }
     if (isFeedbackAddDialogOpen.value) {

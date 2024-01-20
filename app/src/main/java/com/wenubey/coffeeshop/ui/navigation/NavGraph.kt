@@ -26,7 +26,7 @@ fun NavGraph(
         }
 
         composable(route = Screen.OrderHistoryScreen.route) {
-            OrderHistoryScreen()
+            OrderHistoryScreen(drawerState = drawerState)
         }
 
         composable(route = Screen.AboutUsScreen.route) {
