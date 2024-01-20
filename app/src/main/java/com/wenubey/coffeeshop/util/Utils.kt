@@ -16,6 +16,7 @@ import com.wenubey.coffeeshop.data.local.entities.Feedback
 import com.wenubey.coffeeshop.data.local.entities.FeedbackOpinion
 import com.wenubey.coffeeshop.data.local.entities.MenuItem
 import com.wenubey.coffeeshop.data.local.entities.MenuItemType
+import com.wenubey.coffeeshop.data.local.entities.Order
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -43,6 +44,15 @@ val fakeFeedback = Feedback(
             "with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with " +
             "desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
     feedbackOpinion = FeedbackOpinion.NEGATIVE
+)
+
+val fakeOrder = Order(
+    items = mutableListOf(
+        fakeMenuItem,
+        fakeMenuItem,
+        fakeMenuItem,
+    ),
+    totalPrice = 10.0
 )
 
 fun groupMenuItemsByType(menuItems: List<MenuItem>): Map<String, List<MenuItem>> {

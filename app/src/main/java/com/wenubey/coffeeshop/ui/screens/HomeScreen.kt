@@ -113,7 +113,7 @@ private fun HomeScreenContent(
                                 imageVector = Icons.Default.ShoppingBag,
                                 contentDescription = stringResource(R.string.current_order_fab_description)
                             )
-                            Text(text = "${currentTotalPrice}$")
+                            Text(text = stringResource(id = R.string.price_format, currentTotalPrice))
                         }
                     }
                 }

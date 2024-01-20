@@ -22,6 +22,10 @@ class OrderViewModel(
     private val _currentOrder = MutableLiveData(Order(items = mutableListOf(), totalPrice = 0.0))
 
 
+    init {
+        getAllOrders()
+    }
+
     fun onOrderEvent(event: OrderEvent) {
         when (event) {
             is OrderEvent.OnClearOrderHistory -> clearOrderHistory()
@@ -80,7 +84,7 @@ class OrderViewModel(
         }
     }
 
-    private fun getAllOrders() = viewModelScope.launch {
+    fun getAllOrders() = viewModelScope.launch {
         val result = repo.getAllOrders()
         if (result.isSuccess) {
             _orderDataState.postValue(OrderDataState(orders = result.getOrNull()))

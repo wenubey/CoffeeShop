@@ -66,7 +66,7 @@ private fun CurrentOrderAlertDialogContent(
         onDismissRequest = { isDialogOpen.value = false },
         confirmButton = {
             Column {
-                Text(text = "Current Total: ${currentOrder?.totalPrice}$")
+                Text(text = stringResource(R.string.total_message, currentOrder?.totalPrice ?: 0.0))
                 Button(
                     onClick = onDialogConfirmClicked,
                 ) {
