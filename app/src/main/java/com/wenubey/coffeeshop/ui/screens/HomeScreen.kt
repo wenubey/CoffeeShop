@@ -1,6 +1,7 @@
 package com.wenubey.coffeeshop.ui.screens
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -103,7 +104,7 @@ private fun HomeScreenContent(
             )
         },
         floatingActionButton = {
-            Row {
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 if (currentTotalPrice != 0.0 && currentTotalPrice != null) {
                     FloatingActionButton(onClick = {
                         isCurrentOrderDialogOpen.value = !isCurrentOrderDialogOpen.value
