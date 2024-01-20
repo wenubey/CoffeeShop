@@ -1,5 +1,6 @@
 package com.wenubey.coffeeshop.ui.screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -23,6 +24,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.wenubey.coffeeshop.R
 import com.wenubey.coffeeshop.ui.components.AddFeedbackAlertDialog
 import com.wenubey.coffeeshop.ui.components.CommonTopAppBar
@@ -77,7 +79,7 @@ private fun FeedbackScreenContent(
             )
         },
         floatingActionButton = {
-            Row {
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 FloatingActionButton(
                     onClick = {
                         isDeleteAllFeedbacksDialogOpened.value =
